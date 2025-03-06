@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useSelector } from '../../services/store';
 import styles from './constructor-page.module.css';
 import { RootState } from '../../services/store';

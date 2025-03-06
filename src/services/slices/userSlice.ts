@@ -1,8 +1,15 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
-import { TRegisterData, registerUserApi, TLoginData, loginUserApi } from '@api';
+import {
+  TRegisterData,
+  registerUserApi,
+  TLoginData,
+  loginUserApi,
+  getUserApi,
+  logoutApi,
+  updateUserApi
+} from '@api';
 import { setCookie, getCookie, deleteCookie } from '../../utils/cookie';
-import { getUserApi, logoutApi, updateUserApi } from '@api';
 
 type TUserState = {
   isAuthChecked: boolean;
