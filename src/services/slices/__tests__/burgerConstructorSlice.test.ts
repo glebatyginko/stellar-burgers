@@ -6,16 +6,11 @@ import {
   removeIngredient,
   moveIngredient,
   clearConstructor,
-  ConstructorState
+  initialState
 } from '../burgerConstructorSlice';
 import { TConstructorIngredient } from '@utils-types';
 
 describe('burgerConstructorSlice', () => {
-  const initialState: ConstructorState = {
-    bun: null,
-    ingredients: []
-  };
-
   const testBun: TConstructorIngredient = {
     id: 'fixed-id',
     _id: '1',

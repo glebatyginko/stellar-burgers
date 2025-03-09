@@ -7,22 +7,11 @@ import {
   registerUser,
   loginUser,
   updateUser,
-  userSlice
+  userSlice,
+  initialState
 } from '../userSlice';
 
 describe('userSlice', () => {
-  const initialState: TUserState = {
-    isAuthChecked: false,
-    isAuthenticated: false,
-    data: null,
-    loginUserError: null,
-    loginUserRequest: false,
-    registerUserError: null,
-    registerUserRequest: false,
-    updateUserError: null,
-    updateUserRequest: false
-  };
-
   const userRegisterData = {
     email: 'test@yandex.ru',
     name: 'testName',

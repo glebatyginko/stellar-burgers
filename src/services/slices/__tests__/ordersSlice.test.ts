@@ -6,19 +6,11 @@ import {
   fetchOrdersHistory,
   clearOrder,
   clearOrderModalData,
-  orderSlice
+  orderSlice,
+  initialState
 } from '../ordersSlice';
 
 describe('orderSlice', () => {
-  const initialState: TOrderState = {
-    currentOrder: null,
-    orderModalData: null,
-    ordersHistory: [],
-    orderRequest: false,
-    ordersHistoryRequest: false,
-    orderError: null
-  };
-
   const testOrder: TOrder = {
     _id: '12345',
     status: 'completed',
