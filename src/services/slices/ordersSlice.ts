@@ -3,7 +3,7 @@ import { orderBurgerApi, getOrderByNumberApi, getOrdersApi } from '@api';
 import { TOrder } from '@utils-types';
 import { RootState } from '../store';
 
-type TOrderState = {
+export type TOrderState = {
   currentOrder: TOrder | null;
   orderModalData: TOrder | null;
   ordersHistory: TOrder[];
@@ -12,7 +12,7 @@ type TOrderState = {
   orderError: string | null;
 };
 
-const initialState: TOrderState = {
+export const initialState: TOrderState = {
   currentOrder: null,
   orderModalData: null,
   ordersHistory: [],
@@ -84,9 +84,9 @@ export const orderSlice = createSlice({
           state.orderModalData = action.payload;
         }
       )
-      .addCase(createOrder.rejected, (state, action) => {
+      .addCase(createOrder.rejected, (state, { error }) => {
         state.orderRequest = false;
-        state.orderError = action.payload || 'Ошибка при создании заказа';
+        state.orderError = error?.message || 'Ошибка при создании заказа';
       })
       .addCase(fetchOrderByNumber.pending, (state) => {
         state.orderRequest = true;
@@ -99,10 +99,10 @@ export const orderSlice = createSlice({
           state.currentOrder = action.payload;
         }
       )
-      .addCase(fetchOrderByNumber.rejected, (state, action) => {
+      .addCase(fetchOrderByNumber.rejected, (state, { error }) => {
         state.orderRequest = false;
         state.orderError =
-          action.payload || 'Ошибка при получении данных заказа';
+          error?.message || 'Ошибка при получении данных заказа';
       })
       .addCase(fetchOrdersHistory.pending, (state) => {
         state.ordersHistoryRequest = true;
@@ -115,10 +115,10 @@ export const orderSlice = createSlice({
           state.ordersHistory = action.payload;
         }
       )
-      .addCase(fetchOrdersHistory.rejected, (state, action) => {
+      .addCase(fetchOrdersHistory.rejected, (state, { error }) => {
         state.ordersHistoryRequest = false;
         state.orderError =
-          action.payload || 'Ошибка при загрузке истории заказов';
+          error?.message || 'Ошибка при загрузке истории заказов';
       });
   }
 });

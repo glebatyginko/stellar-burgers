@@ -11,7 +11,7 @@ import {
 } from '@api';
 import { setCookie, getCookie, deleteCookie } from '../../utils/cookie';
 
-type TUserState = {
+export type TUserState = {
   isAuthChecked: boolean;
   isAuthenticated: boolean;
   data: TUser | null;
@@ -23,7 +23,7 @@ type TUserState = {
   updateUserRequest: boolean;
 };
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   isAuthChecked: false,
   isAuthenticated: false,
   data: null,
@@ -136,9 +136,9 @@ export const userSlice = createSlice({
         state.registerUserRequest = true;
         state.registerUserError = null;
       })
-      .addCase(registerUser.rejected, (state, action) => {
+      .addCase(registerUser.rejected, (state, { error }) => {
         state.registerUserRequest = false;
-        state.registerUserError = action.payload || 'Ошибка при регистрации';
+        state.registerUserError = error?.message || 'Ошибка при регистрации';
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.data = action.payload;
@@ -150,9 +150,9 @@ export const userSlice = createSlice({
         state.loginUserRequest = true;
         state.loginUserError = null;
       })
-      .addCase(loginUser.rejected, (state, action) => {
+      .addCase(loginUser.rejected, (state, { error }) => {
         state.loginUserRequest = false;
-        state.loginUserError = action.payload || 'Ошибка при авторизации';
+        state.loginUserError = error?.message || 'Ошибка при авторизации';
         state.isAuthChecked = true;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
@@ -165,10 +165,10 @@ export const userSlice = createSlice({
         state.updateUserRequest = true;
         state.updateUserError = null;
       })
-      .addCase(updateUser.rejected, (state, action) => {
+      .addCase(updateUser.rejected, (state, { error }) => {
         state.updateUserRequest = false;
         state.updateUserError =
-          action.payload || 'Ошибка при обновлении данных';
+          error?.message || 'Ошибка при обновлении данных';
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.data = action.payload;
